@@ -106,6 +106,23 @@ namespace Json_server_addressBookUnitTest
 
         }
 
+        //UC25
+        [TestMethod]
+        public void givenPersonId_OnDelete_ShouldReturnSuccessStatus()
+        {
+            //arrange
+            RestRequest request = new RestRequest("/AddressBook/4", Method.DELETE);
+
+            //act
+            IRestResponse response = client.Execute(request);
+
+            //assert
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            System.Console.WriteLine(response.Content);
+
+        }
+
+
 
 
     }
