@@ -78,6 +78,35 @@ namespace Json_server_addressBookUnitTest
 
         }
 
+        //UC24
+        [TestMethod]
+        public void givenContact_OnUpdate_ShouldReturnUpdatedContact()
+        {
+            RestRequest request = new RestRequest("/AddressBook/4", Method.PUT);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("first_name", "rani");
+            jObjectbody.Add("last_name", "singh");
+            jObjectbody.Add("address", "tpr");
+            jObjectbody.Add("city", "cpr");
+            jObjectbody.Add("state", "bhr");
+            jObjectbody.Add("zip", "654321");
+            jObjectbody.Add("phone_number", "7654321890");
+            jObjectbody.Add("email", "rani@gmail.com");
+
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+
+            //act
+            var response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            AddressBook dataResponse = JsonConvert.DeserializeObject<AddressBook>(response.Content);
+            Assert.AreEqual("rani", dataResponse.first_name);
+            Assert.AreEqual("rani@gmail.com", dataResponse.email);
+
+
+
+        }
+
+
 
     }
 }
